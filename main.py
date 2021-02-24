@@ -2,14 +2,15 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+#Home page where user can recommend a movie
 @app.route('/')
-def main():
-    return "<h1>Main page<h1/>"
+def home():
+    return render_template("home.html")
 
-
-@app.route('/recommend/')
+#Second page where user can find redommendations made by other users
+@app.route('/recommendations/')
 def recommendations():
-    return "<h1>Recommendations page<h1/>"
+    return render_template("recommendations.html")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
