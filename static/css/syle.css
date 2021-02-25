@@ -1,14 +1,18 @@
 body {
     background-color: #fcfcf5;
-
+    font-family: 'RocknRoll One', sans-serif;
 }
 
 #form {
     max-width: 64em;
     margin: auto;
+    border: black;
    
  }
 
  #thanks {
-     text-align: center;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
  }
