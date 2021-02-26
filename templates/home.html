@@ -3,11 +3,16 @@
 {% block title %}Home page{% endblock %}
 
 {% block content %}
-<div>
+<div id="question">
     <form id="form" action="#" method="post" >
-        <p>Write a title of a movie witch you would like to recommend:</p>
-        <p><input type="text" name="title" ></p>
-        <p><input type="submit" value="Submit"></p>
+        <p>Write a title of a movie which you would like to recommend:</p>
+        <div id="field">
+            <p><input type="text" name="title" ></p>
+        </div>
+        <div id="button">
+        <button type="submit" value="Submit">Submit</button>
+        </div>
     </form>
 </div>
 {% endblock %}
+    

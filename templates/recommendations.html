@@ -3,7 +3,8 @@
 {% block title %}Recommendations{% endblock %}
 
 {% block content %}
+<!--Iteretion for all movies in datebase-->
 {% for movie in movies %}
-<p>{{movie["movie title"]}}</p>
+<p id="movie">{{movie["movie title"]}}</p>
 {% endfor %}
 {% endblock %}

@@ -3,12 +3,48 @@ body {
     font-family: 'RocknRoll One', sans-serif;
 }
 
-#form {
+#movie {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#question {
+    
+    width: 550px;
+    height: 175px;
+    border-radius: 25px;
+    margin-top: 50px;
     max-width: 64em;
-    margin: auto;
-    border: black;
-   
- }
+    display: block;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 25px
+}
+
+#field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    border-radius: 10px;
+}
+
+button {
+    color: floralwhite;
+    border-radius: 10px;
+    background-color: rgb(43, 42, 42);
+}
+
 
  #thanks {
     text-align: center;
@@ -16,3 +52,8 @@ body {
     margin: 0 auto;
     padding: 20px;
  }
+
+ a {
+     color: floralwhite;
+ }
+ 
