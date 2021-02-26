@@ -3,5 +3,7 @@
 {% block title %}Recommendations{% endblock %}
 
 {% block content %}
-
+{% for movie in movies %}
+<p>{{movie["movie title"]}}</p>
+{% endfor %}
 {% endblock %}

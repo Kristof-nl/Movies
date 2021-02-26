@@ -12,7 +12,7 @@ app.db = client.Movies
 def home():
     if request.method == "POST":
         movie = request.form.get("title")
-        app.db.movie.insert({"movie title": movie})
+        app.db.movie.insert_one({"movie title": movie})
         return render_template("thanks.html")
     else:
         return render_template("home.html")
@@ -20,8 +20,8 @@ def home():
 #Second page where user can find recommendations made by other users
 @app.route('/recommendations/')
 def recommendations():
-    print([i for i in app.db.movie.find({})])
-    return render_template("recommendations.html")
+    movies = app.db.movie.find({})
+    return render_template("recommendations.html", movies=movies)
 
 #On this page we thanks for the recommendation
 @app.route('/thanks')
