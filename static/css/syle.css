@@ -47,13 +47,9 @@ button {
 
 
  #thanks {
+    font-size: 25px;
     text-align: center;
     display: block;
     margin: 0 auto;
-    padding: 20px;
+    padding: 100px;
  }
-
- a {
-     color: floralwhite;
- }
- 

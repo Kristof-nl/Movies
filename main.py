@@ -12,8 +12,13 @@ app.db = client.Movies
 def home():
     if request.method == "POST":
         movie = request.form.get("title")
-        app.db.movie.insert_one({"movie title": movie})
-        return render_template("thanks.html")
+        #Add movie to datebase if user typed titel
+        if movie:
+            app.db.movie.insert_one({"movie title": movie})
+            return render_template("thanks.html")
+        # Prevent to add empty data to datebase
+        else:
+            return render_template("home.html")
     else:
         return render_template("home.html")
 
