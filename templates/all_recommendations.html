@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}All recommendations{% endblock %}
+
+{% block content %}
+<!--Iteretion for all movies in datebase-->
+{% for movie in movies %}
+<p id="movie">{{movie}}</p>
+{% endfor %}
+{% endblock %}
