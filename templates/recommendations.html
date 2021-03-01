@@ -3,8 +3,16 @@
 {% block title %}Recommendations{% endblock %}
 
 {% block content %}
-<!--Iteretion for all movies in datebase-->
-{% for movie in movies %}
-<p id="movie">{{movie["movie title"]}}</p>
-{% endfor %}
+<!--Most common movie-->
+<div id="recommendations">
+    <div class="recomendation">
+        <p>Top 5 recommendations:</p>
+        {% if most_common_movie %}
+        <p>{{most_common_movie}}</p>
+        {% else %}
+        <p>There are any recommendations for you</p>
+        {% endblock %}
+    </div>
+
+</div>
 {% endblock %}
