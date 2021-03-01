@@ -26,6 +26,7 @@ def home():
         #Add movie to datebase if user typed title
         if movie:
             app.db.movie.insert_one({"movie title": movie})
+            movie_list.append(movie)
             return render_template("thanks.html")
         # Prevent to add en empty data to the datebase
         else:
@@ -39,10 +40,18 @@ def recommendations():
     #Most common recomendation
     top_5 = []
     temporary_list = movie_list[:]
+    #Check of temporary_list have more positions than temporary_set. If yes that means that at least
+    #one movie have more than one redommndation
+    temporary_set = set(temporary_list)
     for i in range(5):
-        most_common_movie = mode(movie_list)
+        if len(temporary_list) != len(list(temporary_set)):
+            if mode(movie_list):
+                most_common_movie = mode(movie_list)
+                return render_template("recommendations.html", most_common_movie=most_common_movie)
 
-    return render_template("recommendations.html", most_common_movie=most_common_movie)
+    else:
+        return render_template("recommendations.html")
+
 
 #A page with all recomendations in alphabethical order
 @app.route('/recommendations_all/')
@@ -57,6 +66,12 @@ def recommendations_all():
 @app.route('/thanks')
 def thanks():
     return render_template("thanks.html")
+
+
+temporary_list = movie_list[:]
+temporary_set = set(temporary_list)
+print(temporary_list)
+print(list(temporary_set))
 
 
 
