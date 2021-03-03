@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request
 from pymongo import MongoClient
-from statistics import mode
+from statistics import multimode
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -12,11 +12,12 @@ app = Flask(__name__)
 client = MongoClient("mongodb+srv://Krzysztof_nl:"+os.getenv("PASSWORD")+"@cluster0.dsf4q.mongodb.net/test")
 app.db = client.Movies
 
+#Making a list to get leter a list of unique titles by changint list to a set
 movie_list = []
-alphabethical_movie_list = sorted(movie_list)
 movies = app.db.movie.find({})
 for movie in movies:
     movie_list.append(movie['movie title'])
+
 
 #Home page where user can recommend a movie
 @app.route('/', methods=["POST", "GET"])
@@ -41,16 +42,17 @@ def recommendations():
     top_5 = []
     temporary_list = movie_list[:]
     #Check of temporary_list have more positions than temporary_set. If yes that means that at least
-    #one movie have more than one redommndation
+    #one movie have more than one recommendation
     temporary_set = set(temporary_list)
     for i in range(5):
         if len(temporary_list) != len(list(temporary_set)):
-            if mode(movie_list):
-                most_common_movie = mode(movie_list)
+            #Try of the only one title is most common
+                if multimode(movie_list):
+                    most_common_movie = multimode(movie_list)
                 return render_template("recommendations.html", most_common_movie=most_common_movie)
 
-    else:
-        return render_template("recommendations.html")
+        else:
+            return render_template("recommendations.html")
 
 
 #A page with all recomendations in alphabethical order
@@ -68,10 +70,11 @@ def thanks():
     return render_template("thanks.html")
 
 
+print(movie_list)
 temporary_list = movie_list[:]
-temporary_set = set(temporary_list)
-print(temporary_list)
-print(list(temporary_set))
+#temporary_set = set(temporary_list)
+#print(temporary_list)
+#print(list(temporary_set))
 
 
 

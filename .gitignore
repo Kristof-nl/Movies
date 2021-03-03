@@ -12,6 +12,7 @@
 .history
 .ionide
 venv_movies
+venv_movie
 .env
 
 
