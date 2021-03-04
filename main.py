@@ -38,7 +38,7 @@ def home():
 #Second page where user can find recommendations made by other users
 @app.route('/recommendations/')
 def recommendations():
-    #Most common recomendation
+    #Most common recomendations
     top_10 = []
     temporary_list = movie_list[:]
     #Check of temporary_list have more positions than temporary_set. If yes that means that at least
@@ -46,17 +46,34 @@ def recommendations():
     temporary_set = set(temporary_list)
     #Check of there is at least on title with more than on recommendation
     if len(temporary_list) != len(list(temporary_set)):
-        #Add 10 most common titles
-        while len(top_10) !=10:
-            if multimode(temporary_list):
-                for movie in multimode(temporary_list):
-                    top_10.append(movie)
-                    #Delete all accourances from list
-                    while movie in temporary_list:
-                        temporary_list.remove(movie)
+        if len(temporary_set) >= 10:
+            while len(top_10) !=10:
+                if multimode(temporary_list):
+                    for movie in multimode(temporary_list):
+                        #Prevent to duplicate movies in Top 10
+                        if movie not in top_10:
+                            top_10.append(movie)
+                            #Delete all accourances from temporary_list to find another most common occurance
+                            while movie in temporary_list:
+                                temporary_list.remove(movie)
+                            #Solve problem if there are for exemple all 9 movies in top_10 and multimode gives
+                            #2 or more movies to add
+                            if len(top_10) == 10:
+                                break
 
+        else:
+            #If there is less than 10 movies in the datebase:
+            while len(top_10) !=len(temporary_set):
+                if multimode(temporary_list):
+                    for movie in multimode(temporary_list):
+                        #Prevent to duplicate movies in Top 10
+                        if movie not in top_10:
+                            top_10.append(movie)
+                            #Delete all accourances from temporary_list to find another most common occurance
+                            while movie in temporary_list:
+                                temporary_list.remove(movie)
 
-            return render_template("recommendations.html", most_common_movie=top_10)
+        return render_template("recommendations.html", most_common_movie=top_10)
 
     else:
         return render_template("recommendations.html")
@@ -77,14 +94,6 @@ def thanks():
     return render_template("thanks.html")
 
 
-print(movie_list)
-temporary_list = movie_list[:]
-#temporary_set = set(temporary_list)
-#print(temporary_list)
-#print(list(temporary_set))
-
-
-
-
+    
 if __name__ == "__main__":
     app.run(debug=True)
