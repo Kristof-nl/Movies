@@ -7,11 +7,11 @@
 <div id="recommendations">
     <div class="recomendation">
         <p>Top 5 recommendations:</p>
-        {% if most_common_movie %}
-        <p>{{most_common_movie}}</p>
+        {% for movie in most_common_movie %}
+        <p>{{movie}}</p>
         {% else %}
         <p>There are any recommendations for you</p>
-        {% endif %}
+        {% endfor %}
     </div>
 
 </div>

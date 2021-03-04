@@ -9,7 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 
 #Create a MongoDB datebase with hidden password (with help of python dotenv)
-client = MongoClient("mongodb+srv://Krzysztof_nl:"+os.getenv("PASSWORD")+"@cluster0.dsf4q.mongodb.net/test")
+client = MongoClient("mongodb+srv://"+os.getenv("LOGIN_DATA")+"@cluster0.dsf4q.mongodb.net/test")
 app.db = client.Movies
 
 #Making a list to get leter a list of unique titles by changint list to a set
@@ -39,20 +39,27 @@ def home():
 @app.route('/recommendations/')
 def recommendations():
     #Most common recomendation
-    top_5 = []
+    top_10 = []
     temporary_list = movie_list[:]
     #Check of temporary_list have more positions than temporary_set. If yes that means that at least
-    #one movie have more than one recommendation
+    #one movie have more recommendations than other movies
     temporary_set = set(temporary_list)
-    for i in range(5):
-        if len(temporary_list) != len(list(temporary_set)):
-            #Try of the only one title is most common
-                if multimode(movie_list):
-                    most_common_movie = multimode(movie_list)
-                return render_template("recommendations.html", most_common_movie=most_common_movie)
+    #Check of there is at least on title with more than on recommendation
+    if len(temporary_list) != len(list(temporary_set)):
+        #Add 10 most common titles
+        while len(top_10) !=10:
+            if multimode(temporary_list):
+                for movie in multimode(temporary_list):
+                    top_10.append(movie)
+                    #Delete all accourances from list
+                    while movie in temporary_list:
+                        temporary_list.remove(movie)
 
-        else:
-            return render_template("recommendations.html")
+
+            return render_template("recommendations.html", most_common_movie=top_10)
+
+    else:
+        return render_template("recommendations.html")
 
 
 #A page with all recomendations in alphabethical order
