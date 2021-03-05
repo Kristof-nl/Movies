@@ -1,4 +1,4 @@
-import os
+import os, random
 from flask import Flask, render_template, request
 from pymongo import MongoClient
 from statistics import multimode
@@ -38,7 +38,23 @@ def home():
 #Second page where user can find recommendations made by other users
 @app.route('/recommendations/')
 def recommendations():
-    #Most common recomendations
+    #Random recommedation
+    random_movie = random.choice(movie_list)
+    #Recent recommendations
+    recent_recommendations = []
+    temporary_recent_list = movie_list[:]
+    if len(set(movie_list)) >= 10:
+        while len(recent_recommendations) != 10:
+            recent_movie = temporary_recent_list.pop()
+            if recent_movie not in recent_recommendations:
+                recent_recommendations.append(recent_movie)
+        
+    else:
+        while len(recent_recommendations) != len(set(movie_list)):
+            recent_movie = temporary_recent_list.pop()
+            if recent_movie not in recent_recommendations:
+                recent_recommendations.append(recent_movie)
+    #Most common recommendations
     top_10 = []
     temporary_list = movie_list[:]
     #Check of temporary_list have more positions than temporary_set. If yes that means that at least
@@ -73,7 +89,8 @@ def recommendations():
                             while movie in temporary_list:
                                 temporary_list.remove(movie)
 
-        return render_template("recommendations.html", most_common_movie=top_10)
+        return render_template("recommendations.html", most_common_movie=top_10, random_movie=random_movie,
+                            recent_recommendations=recent_recommendations)
 
     else:
         return render_template("recommendations.html")
@@ -92,6 +109,7 @@ def recommendations_all():
 @app.route('/thanks')
 def thanks():
     return render_template("thanks.html")
+
 
 
     

@@ -47,9 +47,25 @@ button {
 
 
  #thanks {
-    font-size: 25px;
+    font-size: 20px;
     text-align: center;
     display: block;
     margin: 0 auto;
     padding: 100px;
  }
+
+ p {
+     text-align: center;
+ }
+
+
+ #recommendation:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+ 
+.recomendation {
+    float: left;
+    width: 33.33%;
+  }
