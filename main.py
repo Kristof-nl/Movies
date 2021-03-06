@@ -8,8 +8,8 @@ load_dotenv()
 
 app = Flask(__name__)
 
-#Create a MongoDB datebase with hidden password (with help of python dotenv)
-client = MongoClient("mongodb+srv://"+os.getenv("LOGIN_DATA")+"@cluster0.dsf4q.mongodb.net/test")
+#Create a MongoDB datebase with hidden login data (with help of python dotenv)
+client = MongoClient(os.getenv("LOGIN_DATA"))
 app.db = client.Movies
 
 #Making a list to get leter a list of unique titles by changint list to a set

@@ -8,19 +8,19 @@
     <div class="recomendation">
         <h1>Top 10 recommendations:</h1>
         {% for movie in most_common_movie %}
-        <p>{{movie}}</p>
+        <p class="list">{{movie}}</p>
         {% else %}
-        <p>There are any recommendations for you</p>
+        <h1>There are any recommendations for you</h1>
         {% endfor %}
     </div>
     <div class="recomendation">
         <h1>Random recommendation:</h1>
-        <p>{{random_movie}}</p>
+        <p class="list2">{{random_movie}}</p>
     </div>
     <div class="recomendation">
         <h1>Recent recommendations:</h1>
         {% for movie in recent_recommendations %}
-        <p>{{movie}}</p>
+        <p class="list">{{movie}}</p>
         {% endfor %}
     </div>
 
