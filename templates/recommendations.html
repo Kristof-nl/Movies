@@ -8,7 +8,7 @@
     <div class="recomendation">
         <h1>Top 10 recommendations:</h1>
         {% for movie in most_common_movie %}
-        <p class="list">{{movie}}</p>
+        <p class="list">{{movie[0]}} {{movie[1]}}</p>
         {% else %}
         <h1>There are any recommendations for you</h1>
         {% endfor %}

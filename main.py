@@ -43,6 +43,7 @@ def recommendations():
     #Recent recommendations
     recent_recommendations = []
     temporary_recent_list = movie_list[:]
+    # If are 10 or more movies in datebase
     if len(set(movie_list)) >= 10:
         while len(recent_recommendations) != 10:
             recent_movie = temporary_recent_list.pop()
@@ -50,6 +51,7 @@ def recommendations():
                 recent_recommendations.append(recent_movie)
         
     else:
+        # If are less than 10 movies in datebase
         while len(recent_recommendations) != len(set(movie_list)):
             recent_movie = temporary_recent_list.pop()
             if recent_movie not in recent_recommendations:
@@ -65,29 +67,31 @@ def recommendations():
         if len(temporary_set) >= 10:
             while len(top_10) !=10:
                 if multimode(temporary_list):
+                    # There can be more than one movie with the same number of recommendations
                     for movie in multimode(temporary_list):
-                        #Prevent to duplicate movies in Top 10
-                        if movie not in top_10:
-                            top_10.append(movie)
-                            #Delete all accourances from temporary_list to find another most common occurance
-                            while movie in temporary_list:
-                                temporary_list.remove(movie)
-                            #Solve problem if there are for exemple all 9 movies in top_10 and multimode gives
-                            #2 or more movies to add
-                            if len(top_10) == 10:
-                                break
+                        number_of_recommendations = 0
+                        #Delete all accourances from temporary_list to find another most common occurance
+                        while movie in temporary_list:
+                            number_of_recommendations += 1
+                            temporary_list.remove(movie)
+                        top_10.append([movie, number_of_recommendations])
+                        #Solve problem if there are for exemple all 9 movies in top_10 and multimode gives
+                        #2 or more movies to add
+                        if len(top_10) == 10:
+                            break
 
         else:
             #If there is less than 10 movies in the datebase:
             while len(top_10) !=len(temporary_set):
                 if multimode(temporary_list):
                     for movie in multimode(temporary_list):
-                        #Prevent to duplicate movies in Top 10
-                        if movie not in top_10:
-                            top_10.append(movie)
-                            #Delete all accourances from temporary_list to find another most common occurance
-                            while movie in temporary_list:
-                                temporary_list.remove(movie)
+                        number_of_recommendations = 0
+                        #Delete all accourances from temporary_list to find another most common occurance
+                        while movie in temporary_list:
+                            number_of_recommendations += 1
+                            temporary_list.remove(movie)
+                        top_10.append([movie, number_of_recommendations])
+                        
 
         return render_template("recommendations.html", most_common_movie=top_10, random_movie=random_movie,
                             recent_recommendations=recent_recommendations)
