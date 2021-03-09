@@ -109,24 +109,17 @@ def recommendations_all():
     #Delete all repeats by creating a set
     movie_set = set(movie_list)
     alphabethical_movie_list = sorted(movie_set)
-    #List with list movie startswith letters from alphabet
+    #Dictionary with movie sorted by the first letter
 
-    def list_movies_start_with(letter):
-        lst = []
-        for movie in alphabethical_movie_list:
-            if movie.startswith(chr(letter)):
-                lst.append(movie)
-            return lst
+    dictionary_movies_start_with = {'A':[], 'B':[], 'C':[], 'D':[], 'E':[], 'F':[], 'G':[], 'H':[], 'I':[], 'J':[],
+    'K':[], 'L':[], 'M':[], 'N':[], 'O':[], 'P':[], 'Q':[], 'R':[], 'S':[], 'T':[], 'U':[], 'V':[], 'W':[], 'X':[],
+    'Y':[], 'Z':[]}
 
+    
+    for movie in alphabethical_movie_list:
+        dictionary_movies_start_with[movie[0]].append(movie)
 
-    startswith_list = []
-    for i in range(24):
-        letter = 65
-        x = list_movies_start_with(letter)
-        startswith_list.append(x)
-        letter += 1
-
-    return render_template("all_recommendations.html", movies=startswith_list)
+    return render_template("all_recommendations.html", movies=dictionary_movies_start_with)
 
 
 #On this page we thanks for the recommendation
@@ -134,8 +127,7 @@ def recommendations_all():
 def thanks():
     return render_template("thanks.html")
 
-
-
     
+
 if __name__ == "__main__":
     app.run(debug=True)
