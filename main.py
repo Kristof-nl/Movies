@@ -3,6 +3,8 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 from statistics import multimode
 from dotenv import load_dotenv
+
+from functions import list_movies_start_with
 load_dotenv()
 
 
@@ -23,7 +25,8 @@ for movie in movies:
 @app.route('/', methods=["POST", "GET"])
 def home():
     if request.method == "POST":
-        movie = request.form.get("title")
+        # Use capitalize to get every title with capital first character
+        movie = request.form.get("title").capitalize()
         #Add movie to datebase if user typed title
         if movie:
             app.db.movie.insert_one({"movie title": movie})
@@ -106,7 +109,24 @@ def recommendations_all():
     #Delete all repeats by creating a set
     movie_set = set(movie_list)
     alphabethical_movie_list = sorted(movie_set)
-    return render_template("all_recommendations.html", movies=alphabethical_movie_list)
+    #List with list movie startswith letters from alphabet
+
+    def list_movies_start_with(letter):
+        lst = []
+        for movie in alphabethical_movie_list:
+            if movie.startswith(chr(letter)):
+                lst.append(movie)
+            return lst
+
+
+    startswith_list = []
+    for i in range(24):
+        letter = 65
+        x = list_movies_start_with(letter)
+        startswith_list.append(x)
+        letter += 1
+
+    return render_template("all_recommendations.html", movies=startswith_list)
 
 
 #On this page we thanks for the recommendation
