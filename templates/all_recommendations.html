@@ -3,8 +3,22 @@
 {% block title %}All recommendations{% endblock %}
 
 {% block content %}
-<!--Iteretion for all movies in datebase-->
-{% for movie in movies %}
-    {{movie}}
+<!--Iteretion for all movies in dictionary. We print it only if list isn't empty-->
+{% for movies_list in movies.values() %}
+    <div id="alphabethic">
+    {% if movies_list %}
+        {% if movies_list|length <= 10 %}
+            {% for movie in movies_list %}
+           <p>{{movie}}</p>
+            {% endfor %}
+        {% else %}
+            {% for movie in movies_list[:9] %}
+            <p>{{movie}}</p>
+            {% endfor %}
+        {% endif %}
+
+    {% endif %}
+    </div>
 {% endfor %}
+ 
 {% endblock %}
