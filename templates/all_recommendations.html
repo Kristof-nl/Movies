@@ -3,16 +3,23 @@
 {% block title %}All recommendations{% endblock %}
 
 {% block content %}
-<!--Iteretion for all movies in dictionary. We print it only if list isn't empty-->
+<h1 id=title_all_recommendations>If there are more than 10 titles please click a link to go to a subpage with all titles starts with this letter</h1>
+<!--Iteretion for all movies in dictionary. Aplication print it only if list isn't empty-->
 {% for movies_list in movies.values() %}
-    <div id="alphabethic">
     {% if movies_list %}
+    <div id="alphabethic">
+        <!--If there are 10 or less movies the aplication print all titles-->
         {% if movies_list|length <= 10 %}
+            <p id="letter"> <-- {{movies_list[0][0]}} --></p>
             {% for movie in movies_list %}
            <p>{{movie}}</p>
             {% endfor %}
         {% else %}
-            {% for movie in movies_list[:9] %}
+            <!--If there  are more than 10 movies the aplication print only first 9 titles end
+            all show a link to a next page with all titles-->
+            <p id="letter"> <-- <a href="url">{{movies_list[0][0]}} </a>--></p>
+            <p>First 10 titles:</p>
+            {% for movie in movies_list[:10] %}
             <p>{{movie}}</p>
             {% endfor %}
         {% endif %}

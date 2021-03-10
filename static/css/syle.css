@@ -12,7 +12,7 @@ body {
 
 #question {
     
-    width: 550px;
+    width: 650px;
     height: 175px;
     border-radius: 25px;
     margin-top: 50px;
@@ -118,4 +118,23 @@ p {
 
 #thx {
     font-size: 24px
+}
+
+#alphabethic {
+    size: 12px;
+    width: 18%;
+    height: 450px;
+    float: left;
+    margin: 15px;
+    padding: 5px;
+}
+
+#letter {
+    size: 16px;
+    font-weight: bold;
+}
+
+#title_all_recommendations {
+    margin:  20px 20px 20px 20px;
+
 }

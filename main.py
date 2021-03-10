@@ -3,8 +3,6 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 from statistics import multimode
 from dotenv import load_dotenv
-
-from functions import list_movies_start_with
 load_dotenv()
 
 
