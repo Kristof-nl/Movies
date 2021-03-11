@@ -18,21 +18,36 @@ movies = app.db.movie.find({})
 for movie in movies:
     movie_list.append(movie['movie title'])
 
+#Make a dictionary with all movies for all_recommendations page
+#Delete all repeats by creating a set
+movie_set = set(movie_list)
+alphabethical_movie_list = sorted(movie_set)
+
+dictionary_movies_start_with = {'A':[], 'B':[], 'C':[], 'D':[], 'E':[], 'F':[], 'G':[], 'H':[], 'I':[], 'J':[],
+'K':[], 'L':[], 'M':[], 'N':[], 'O':[], 'P':[], 'Q':[], 'R':[], 'S':[], 'T':[], 'U':[], 'V':[], 'W':[], 'X':[],
+'Y':[], 'Z':[]}
+
+for movie in alphabethical_movie_list:
+    dictionary_movies_start_with[movie[0]].append(movie)
+
 
 #Home page where user can recommend a movie
 @app.route('/', methods=["POST", "GET"])
 def home():
     if request.method == "POST":
-        # Use capitalize to get every title with capital first character
+        #Use capitalize to get every title with capital first character
         movie = request.form.get("title").capitalize()
+        #If movie title is longer than 30 characters add "..." at the end
+        if len(movie) > 30:
+            movie = movie + "..."
         #Add movie to datebase if user typed title
-        if movie:
-            app.db.movie.insert_one({"movie title": movie})
-            movie_list.append(movie)
-            return render_template("thanks.html")
-        # Prevent to add en empty data to the datebase
-        else:
-            return render_template("home.html")
+            if movie:
+                app.db.movie.insert_one({"movie title": movie})
+                movie_list.append(movie)
+                return render_template("thanks.html")
+            # Prevent to add en empty data to the datebase
+            else:
+                return render_template("home.html")
     else:
         return render_template("home.html")
 
@@ -104,19 +119,6 @@ def recommendations():
 #A page with all recomendations in alphabethical order
 @app.route('/recommendations_all/')
 def recommendations_all():
-    #Delete all repeats by creating a set
-    movie_set = set(movie_list)
-    alphabethical_movie_list = sorted(movie_set)
-    #Dictionary with movie sorted by the first letter
-
-    dictionary_movies_start_with = {'A':[], 'B':[], 'C':[], 'D':[], 'E':[], 'F':[], 'G':[], 'H':[], 'I':[], 'J':[],
-    'K':[], 'L':[], 'M':[], 'N':[], 'O':[], 'P':[], 'Q':[], 'R':[], 'S':[], 'T':[], 'U':[], 'V':[], 'W':[], 'X':[],
-    'Y':[], 'Z':[]}
-
-    
-    for movie in alphabethical_movie_list:
-        dictionary_movies_start_with[movie[0]].append(movie)
-
     return render_template("all_recommendations.html", movies=dictionary_movies_start_with)
 
 
@@ -125,6 +127,15 @@ def recommendations_all():
 def thanks():
     return render_template("thanks.html")
 
+
+@app.route('/all_recommendations/A')
+def a():
+    return render_template("/recomendations/A.html", movies=dictionary_movies_start_with['A'])
+
+
+
+
+print(dictionary_movies_start_with['A'])
     
 
 if __name__ == "__main__":
