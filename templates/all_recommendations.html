@@ -23,9 +23,25 @@
             <p class="titles">{{movie}}</p>
             {% endfor %}
         {% endif %}
-
     {% endif %}
-    </div>
+        </div>
 {% endfor %}
+<!--Movies in others_list have starts with different characters so they need different logic-->        
+<div id="alphabethic">
+    {% if others|length > 0 %} 
+        {% if others|length <= 10 %}
+            <p id="letter"> <-- Others --></p>
+            {% for movie in others %}
+            <p class="titles">{{movie}}</p>
+            {% endfor %}
+        {% else %}
+            <p id="letter"> <-- <a href="/all_recommendations/other">Others</a>--></p>
+            {% for movie in others[:10] %}
+            <p class="titles">{{movie}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+</div>
+
  
 {% endblock %}

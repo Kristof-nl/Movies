@@ -155,3 +155,12 @@ a:hover {
 #first {
     text-decoration: underline;
 }
+
+#movie_letter30 {
+    padding-top: 50px;
+}
+
+#left_movie {
+    text-align: left;
+    padding-left: 750px;
+}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Recommendations B{% endblock %}
+
+{% block content %}
+    {% if movies|length < 30 %}
+        <div id="movie_letter30">
+        {% for movie in movies %}
+        <p id="left_movie">{{movie}}</p>
+        {% endfor %}
+        </div>
+    {% elif movies|length < 60 %}
+        <div id="movie_letter60">
+        {% for movie in movies[:(movies|length/2)] %}
+        <p id="left_movie">{{movie}}</p>
+        {% endfor %}
+        </div>
+    {% else %}
+    {% endif %}
+{% endblock %}
