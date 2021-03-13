@@ -28,15 +28,17 @@
 {% endfor %}
 <!--Movies in others_list have starts with different characters so they need different logic-->        
 <div id="alphabethic">
-    {% if others|length > 0 %} 
-        {% if others|length <= 10 %}
-            <p id="letter"> <-- Others --></p>
-            {% for movie in others %}
+{% for movies_list in others.values() %}
+    {% if movies_list}
+        <!--If there are 10 or less movies the aplication print all titles-->
+        {% if movies_list|length <= 10 %}
+            <p id="letter"> <-- {{movies_list[0][0]}} --></p>
+            {% for movie in movies_list %}
             <p class="titles">{{movie}}</p>
             {% endfor %}
         {% else %}
-            <p id="letter"> <-- <a href="/all_recommendations/other">Others</a>--></p>
-            {% for movie in others[:10] %}
+            <p id="letter"> <-- <a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a>--></p>
+            {% for movie in movies_list[:10] %}
             <p class="titles">{{movie}}</p>
             {% endfor %}
         {% endif %}
