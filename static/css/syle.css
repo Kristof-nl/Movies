@@ -47,11 +47,15 @@ button {
 
 
  #thanks {
-    font-size: 20px;
+    font-size: 32px;
     text-align: center;
     display: block;
-    margin: 0 auto;
+    margin-bottom: 25px;
     padding: 100px;
+ }
+
+ #small_thx {
+     font-size: 16px;
  }
 
  p {
@@ -118,13 +122,13 @@ p {
 }
 
 #thx {
-    font-size: 24px
+    font-size: 32px
 }
 
 #alphabethic {
     color: black;
     width: 23%;
-    height: 500px;
+    height: 580px;
     float: left;
     margin: 10px;
     padding: 5px;

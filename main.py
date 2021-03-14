@@ -1,9 +1,10 @@
 import os, random, string
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from pymongo import MongoClient
 from statistics import multimode
 from dotenv import load_dotenv
 load_dotenv()
+
 
 
 app = Flask(__name__)
@@ -55,8 +56,8 @@ def home():
         #Use capitalize to get every title with capital first character
         movie = request.form.get("title").capitalize()
         #If movie title is longer than 30 characters add "..." at the end
-        if len(movie) > 30:
-            movie = movie[:30] + "..."
+        if len(movie) > 25:
+            movie = movie[:25] + "..."
         else:
             movie
         #Add movie to datebase if user typed title
@@ -66,6 +67,7 @@ def home():
                 return render_template("thanks.html")
             # Prevent to add en empty data to the datebase
             else:
+                flash("Please write a title")
                 return render_template("home.html")
     else:
         return render_template("home.html")
