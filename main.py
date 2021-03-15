@@ -5,9 +5,8 @@ from statistics import multimode
 from dotenv import load_dotenv
 load_dotenv()
 
-
-
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
 
 #Create a MongoDB datebase with hidden login data (with help of python dotenv)
 client = MongoClient(os.getenv("LOGIN_DATA"))
@@ -67,7 +66,7 @@ def home():
                 return render_template("thanks.html")
             # Prevent to add en empty data to the datebase
             else:
-                flash("Please write a title")
+                flash("Text field can't be empty. Please write a title")
                 return render_template("home.html")
     else:
         return render_template("home.html")
