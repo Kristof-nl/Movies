@@ -149,11 +149,14 @@ def thanks():
     return render_template("thanks.html")
 
 
+#Make a new dictionary with all letters and characters
+movies_dictionary = {**dictionary_movies_start_with, **dictionary_movies_other_characters}
+
 #Make pages with list of the movies stated with a specified letter
 @app.route('/all_recommendations/<letter>')
 def all_letters(letter):
-    return render_template("all.html", movies=dictionary_movies_start_with[str(letter)])
-        
+    return render_template("all.html", movies=movies_dictionary[letter])
+         
 
 if __name__ == "__main__":
     app.run(debug=True)
