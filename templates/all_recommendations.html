@@ -3,6 +3,20 @@
 {% block title %}All recommendations{% endblock %}
 
 {% block content %}
+    <ul class="list-inline">
+    {% for movies_list in movies.values() %}
+        {% if movies_list %}
+        <li class="list-inline-item"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% for movies_list in others.values() %}
+        {% if movies_list %}
+        <li class="list-inline-item"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+
+
 <!--Iteretion for all movies in dictionary. Aplication print it only if list isn't empty-->
 {% for movies_list in movies.values() %}
     {% if movies_list %}
@@ -37,7 +51,7 @@
             <p class="titles">{{movie}}</p>
             {% endfor %}
         {% else %}
-            <p id="letter"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></p>
+            <p id="letter"><a href="/all_characters/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></p>
             {% for movie in movies_list[:10] %}
             <p class="titles">{{movie}}</p>
             {% endfor %}

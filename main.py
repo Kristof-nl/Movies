@@ -66,7 +66,7 @@ def home():
                 return render_template("thanks.html")
             # Prevent to add en empty data to the datebase
             else:
-                flash("Text field can't be empty. Please write a title")
+                flash("Text field can't be empty. Please write a title.")
                 return render_template("home.html")
     else:
         return render_template("home.html")
@@ -154,11 +154,6 @@ def thanks():
 def all_letters(letter):
     return render_template("all.html", movies=dictionary_movies_start_with[str(letter)])
         
-
-@app.route('/all_recommendations/Other')
-def other():
-    return render_template("allrecomendations/other.html", movies=list_movies_other)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

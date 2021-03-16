@@ -19,7 +19,6 @@ body {
     max-width: 64em;
     display: block;
     margin: 0 auto;
-    margin-top: 100px;
     padding: 25px
 }
 
@@ -170,5 +169,19 @@ a:hover {
 }
 
 #flash {
-    font-size: 8px;
+    font-size: 14px;
 }
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+  }
+
+#letter {
+    background-color: rgba(15, 15, 15, 0.55);
+    border-radius: 25px;
+}
+
+
