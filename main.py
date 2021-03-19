@@ -1,5 +1,5 @@
 import os, random, string
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, session, url_for
 from pymongo import MongoClient
 from statistics import multimode
 from dotenv import load_dotenv
@@ -11,41 +11,10 @@ app.secret_key = os.getenv("SECRET_KEY")
 #Create a MongoDB datebase with hidden login data (with help of python dotenv)
 client = MongoClient(os.getenv("LOGIN_DATA"))
 app.db = client.Movies
-
-#Making a list to get leter a list of unique titles by changint list to a set
 movie_list = []
 movies = app.db.movie.find({})
 for movie in movies:
     movie_list.append(movie['movie title'])
-
-#Make a dictionary with all movies for all_recommendations page
-#Delete all repeats by creating a set
-movie_set = set(movie_list)
-alphabethical_movie_list = sorted(movie_set)
-
-#Dictionary is apart to shown first movies begins with letters from alphabet
-dictionary_movies_start_with = {'A':[], 'B':[], 'C':[], 'D':[], 'E':[], 'F':[], 'G':[], 'H':[], 'I':[], 'J':[],
-'K':[], 'L':[], 'M':[], 'N':[], 'O':[], 'P':[], 'Q':[], 'R':[], 'S':[], 'T':[], 'U':[], 'V':[], 'W':[], 'X':[],
-'Y':[], 'Z':[]}
-
-#Dictionary with movies begins with characters without alphabet
-dictionary_movies_other_characters = {}
-
-#List with alphabet letters to add movies starts with other characters 
-alphabet = list(string.ascii_uppercase)
-for movie in alphabethical_movie_list:
-    #Add movies starts with letter from alphabet
-    if movie[0] in alphabet:
-        dictionary_movies_start_with[movie[0]].append(movie)
-    #Create keys for dictionary_movies_other_characters
-    else:
-        if movie[0] not in dictionary_movies_other_characters.keys():
-            dictionary_movies_other_characters.update({movie[0]:[]})
-#Add movie to dictionary_movies_other_characters if it starts with character outside the alphabet
-for movie in alphabethical_movie_list:
-    if movie[0] in dictionary_movies_other_characters:
-        dictionary_movies_other_characters[movie[0]].append(movie)
-
 
 
 #Home page where user can recommend a movie
@@ -131,7 +100,7 @@ def recommendations():
                         
 
         return render_template("recommendations.html", most_common_movie=top_10, random_movie=random_movie,
-                            recent_recommendations=recent_recommendations)
+                            recent_recommendations=recent_recommendations,)
 
     else:
         return render_template("recommendations.html")
@@ -141,10 +110,46 @@ character_list = ["#", ","]
 #A page with all recomendations in alphabethical order
 @app.route('/recommendations_all/')
 def recommendations_all():
-    movies = dictionary_movies_start_with
-    others = dictionary_movies_other_characters
-    return render_template("all_recommendations.html", movies=movies,
-     others=others, character_list=character_list)
+    movie_list = []
+    movies = app.db.movie.find({})
+    for movie in movies:
+        movie_list.append(movie['movie title'])
+
+    #Make a dictionary with all movies for all_recommendations page
+    #Delete all repeats by creating a set
+    movie_set = set(movie_list)
+    alphabethical_movie_list = sorted(movie_set)
+
+    #Dictionary is apart to shown first movies begins with letters from alphabet
+    dictionary_movies_start_with = {'A':[], 'B':[], 'C':[], 'D':[], 'E':[], 'F':[], 'G':[], 'H':[], 'I':[], 'J':[],
+    'K':[], 'L':[], 'M':[], 'N':[], 'O':[], 'P':[], 'Q':[], 'R':[], 'S':[], 'T':[], 'U':[], 'V':[], 'W':[], 'X':[],
+    'Y':[], 'Z':[]}
+
+    #Dictionary with movies begins with characters without alphabet
+    dictionary_movies_other_characters = {}
+
+    #Make a new dictionary with all letters and characters
+    movies_dictionary = {**dictionary_movies_start_with, **dictionary_movies_other_characters}
+
+    #List with alphabet letters to add movies starts with other characters 
+    alphabet = list(string.ascii_uppercase)
+    for movie in alphabethical_movie_list:
+        #Add movies starts with letter from alphabet
+        if movie[0] in alphabet:
+            dictionary_movies_start_with[movie[0]].append(movie)
+        #Create keys for dictionary_movies_other_characters
+        else:
+            if movie[0] not in dictionary_movies_other_characters.keys():
+                dictionary_movies_other_characters.update({movie[0]:[]})
+    #Add movie to dictionary_movies_other_characters if it starts with character outside the alphabet
+    for movie in alphabethical_movie_list:
+        if movie[0] in dictionary_movies_other_characters:
+            dictionary_movies_other_characters[movie[0]].append(movie)
+
+
+    
+        return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
+        others=dictionary_movies_other_characters, character_list=character_list)
 
 
 #On this page we thanks for the recommendation
@@ -152,9 +157,6 @@ def recommendations_all():
 def thanks():
     return render_template("thanks.html")
 
-
-#Make a new dictionary with all letters and characters
-movies_dictionary = {**dictionary_movies_start_with, **dictionary_movies_other_characters}
 
 #Make pages with list of the movies stated with a specified letter
 @app.route('/all_recommendations/<letter>')
