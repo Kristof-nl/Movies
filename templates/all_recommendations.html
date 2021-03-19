@@ -3,21 +3,22 @@
 {% block title %}All recommendations{% endblock %}
 
 {% block content %}
-    <ul class="list-inline">
+<div class="btn-group btn-group-toggle" data-toggle="buttons">  
     {% for movies_list in movies.values() %}
         {% if movies_list %}
-        <li class="list-inline-item"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></li>
+        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a>
         {% endif %}
     {% endfor %}
     {% for movies_list in others.values() %}
         {% if movies_list %}
-        <li class="list-inline-item"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></li>
+        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a>
         {% endif %}
     {% endfor %}
-    </ul>
+</div>
 
 
 <!--Iteretion for all movies in dictionary. Aplication print it only if list isn't empty-->
+<div>
 {% for movies_list in movies.values() %}
     {% if movies_list %}
     <div id="alphabethic">
@@ -39,6 +40,7 @@
         {% endif %}
     {% endif %}
     </div>
+</div>
 {% endfor %}
 <!--Movies in others_list have starts with different characters so they need different logic-->        
 {% for movies_list in others.values() %}
@@ -50,10 +52,25 @@
             {% for movie in movies_list %}
             <p class="titles">{{movie}}</p>
             {% endfor %}
+        <!--Some characters need apart route - they make a fault if for exmple route end with /#-->
+        {% elif movies_list|length > 10 and movies_list[0][0] in character_list %}
+            {% if movies_list[0][0] == '#' %}
+                <p id="letter"><a href="/all_recommendations/hash">{{movies_list[0][0]}}</a></p>
+                {% for movie in movies_list[:10] %}
+                    <p class="titles">{{movie}}</p>
+                {% endfor %}
+                <p>To see all please click <a href="/all_recommendations/hash">here</a></p>
+            {% elif movies_list[0][0] == '.' %}
+                <p id="letter"><a href="/all_recommendations/dot">{{movies_list[0][0]}}</a></p>
+                {% for movie in movies_list[:10] %}
+                 <p class="titles">{{movie}}</p>
+                {% endfor %}
+                <p>To see all please click <a href="/all_recommendations/dot">here</a></p>
+            {% endif %} 
         {% else %}
-            <p id="letter"><a href="/all_characters/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></p>
+            <p id="letter"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></p>
             {% for movie in movies_list[:10] %}
-            <p class="titles">{{movie}}</p>
+                <p class="titles">{{movie}}</p>
             {% endfor %}
         {% endif %}
     {% endif %}

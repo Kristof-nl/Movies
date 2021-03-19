@@ -79,7 +79,7 @@ button {
 
 h1 {
     border-radius: 25px;
-    color:rgba(255,255,255,.55);
+    color:rgba(255, 255, 255, 0.692);
     background-color: black;
     text-align: center;
     font-size: 20px;
@@ -184,4 +184,13 @@ img {
     border-radius: 25px;
 }
 
+
+.btn-group {
+    margin-bottom: 20px;
+   
+}
+
+.btn {
+    background-color:rgba(51, 51, 51, 0.692) !important;
+}
 

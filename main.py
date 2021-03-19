@@ -136,11 +136,15 @@ def recommendations():
     else:
         return render_template("recommendations.html")
 
+character_list = ["#", ","]
 
 #A page with all recomendations in alphabethical order
 @app.route('/recommendations_all/')
 def recommendations_all():
-    return render_template("all_recommendations.html", movies=dictionary_movies_start_with, others=dictionary_movies_other_characters)
+    movies = dictionary_movies_start_with
+    others = dictionary_movies_other_characters
+    return render_template("all_recommendations.html", movies=movies,
+     others=others, character_list=character_list)
 
 
 #On this page we thanks for the recommendation
@@ -156,7 +160,17 @@ movies_dictionary = {**dictionary_movies_start_with, **dictionary_movies_other_c
 @app.route('/all_recommendations/<letter>')
 def all_letters(letter):
     return render_template("all.html", movies=movies_dictionary[letter])
-         
+
+#Characters "#" / "." / "_" / "~", "#", "/" cannot be apart in url, they need apart routes
+@app.route('/all_recommendations/hash')
+def hash():
+    return render_template("all.html", movies=movies_dictionary["#"])
+
+@app.route('/all_recommendations/dot')
+def dot():
+    return render_template("all.html", movies=movies_dictionary["."])
+
+        
 
 if __name__ == "__main__":
     app.run(debug=True)
