@@ -16,6 +16,9 @@ movies = app.db.movie.find({})
 for movie in movies:
     movie_list.append(movie['movie title'])
 
+#List with characters making foult if they are in the end of route
+character_list = ["#", ","]
+
 
 #Home page where user can recommend a movie
 @app.route('/', methods=["POST", "GET"])
@@ -130,6 +133,7 @@ def recommendations_all():
 
     #Make a new dictionary with all letters and characters
     movies_dictionary = {**dictionary_movies_start_with, **dictionary_movies_other_characters}
+    session['dictionary'] = movies_dictionary
 
     #List with alphabet letters to add movies starts with other characters 
     alphabet = list(string.ascii_uppercase)
@@ -145,8 +149,6 @@ def recommendations_all():
     for movie in alphabethical_movie_list:
         if movie[0] in dictionary_movies_other_characters:
             dictionary_movies_other_characters[movie[0]].append(movie)
-
-
     
         return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
         others=dictionary_movies_other_characters, character_list=character_list)
@@ -161,15 +163,18 @@ def thanks():
 #Make pages with list of the movies stated with a specified letter
 @app.route('/all_recommendations/<letter>')
 def all_letters(letter):
+    movies_dictionary = session.get('dictionary', None)
     return render_template("all.html", movies=movies_dictionary[letter])
 
 #Characters "#" / "." / "_" / "~", "#", "/" cannot be apart in url, they need apart routes
 @app.route('/all_recommendations/hash')
 def hash():
+    movies_dictionary = session.get('dictionary', None)
     return render_template("all.html", movies=movies_dictionary["#"])
 
 @app.route('/all_recommendations/dot')
 def dot():
+    movies_dictionary = session.get('dictionary', None)
     return render_template("all.html", movies=movies_dictionary["."])
 
         
