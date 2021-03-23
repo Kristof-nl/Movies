@@ -11,8 +11,9 @@
 # Ignore all local history of files
 .history
 .ionide
-venv_movies
-text.txt
+venv_movie
+.env
+
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 

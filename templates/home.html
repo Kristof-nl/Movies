@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+<div id#="logo">
+<img src="/static/logo.png" alt="Logo">
+</div>
+<div id="question">   
+    <form id="form" action="#" method="post" >
+        <p>Write a title of a movie which you would like to recommend:</p>
+        <div id="field">
+            <p><input type="text" name="title" maxlength="1000"></p>
+        </div>
+        <div id="button">
+        <button type="submit" value="Submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p id="flash">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% endblock %}
+    

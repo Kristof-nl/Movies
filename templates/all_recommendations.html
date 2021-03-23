@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}All recommendations{% endblock %}
+
+{% block content %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">  
+    {% for movies_list in movies.values() %}
+        {% if movies_list %}
+        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a>
+        {% endif %}
+    {% endfor %}
+    {% for movies_list in others.values() %}
+        {% if movies_list %}
+        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+<!--Iteretion for all movies in dictionary. Aplication print it only if list isn't empty-->
+<div>
+{% for movies_list in movies.values() %}
+    {% if movies_list %}
+    <div id="alphabethic">
+        <!--If there are 10 or less movies the aplication print all titles-->
+        {% if movies_list|length <= 10 %}
+            <p id="letter">{{movies_list[0][0]}}</p>
+            {% for movie in movies_list %}
+           <p class="titles">{{movie}}</p>
+            {% endfor %}
+        {% else %}
+            <!--If there  are more than 10 movies the aplication print only first 9 titles end
+            all show a link to a next page with all titles-->
+            <p id="letter"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}} </a></p>
+            <p id="first">First 10 titles:</p>
+            {% for movie in movies_list[:10] %}
+            <p class="titles">{{movie}}</p>
+            {% endfor %}
+            <p>To see all please click <a href="/all_recommendations/{{movies_list[0][0]}}">here</a></p>
+        {% endif %}
+    {% endif %}
+    </div>
+</div>
+{% endfor %}
+<!--Movies in others_list have starts with different characters so they need different logic-->        
+{% for movies_list in others.values() %}
+    <div id="alphabethic">
+    {% if movies_list %}
+        <!--If there are 10 or less movies the aplication print all titles-->
+        {% if movies_list|length <= 10 %}
+            <p id="letter">{{movies_list[0][0]}}</p>
+            {% for movie in movies_list %}
+            <p class="titles">{{movie}}</p>
+            {% endfor %}
+        <!--Some characters need apart route - they make a fault if for example route end with /#-->
+        {% elif movies_list|length > 10 and movies_list[0][0] in character_list %}
+            {% if movies_list[0][0] == '#' %}
+                <p id="letter"><a href="/all_recommendations/hash">{{movies_list[0][0]}}</a></p>
+                {% for movie in movies_list[:10] %}
+                    <p class="titles">{{movie}}</p>
+                {% endfor %}
+                <p>To see all please click <a href="/all_recommendations/hash">here</a></p>
+            {% elif movies_list[0][0] == '.' %}
+                <p id="letter"><a href="/all_recommendations/dot">{{movies_list[0][0]}}</a></p>
+                {% for movie in movies_list[:10] %}
+                 <p class="titles">{{movie}}</p>
+                {% endfor %}
+                <p>To see all please click <a href="/all_recommendations/dot">here</a></p>
+            {% endif %} 
+        {% else %}
+            <p id="letter"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a></p>
+            {% for movie in movies_list[:10] %}
+                <p class="titles">{{movie}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+    </div>
+{% endfor %}
+
+
+ 
+{% endblock %}

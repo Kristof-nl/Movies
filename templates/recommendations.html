@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Recommendations{% endblock %}
+
+{% block content %}
+<!--Most common movie-->
+<div id="recommendations">
+    <div class="recomendation">
+        <h1>Top 10 recommendations:</h1>
+        <table>
+            {% for movie in most_common_movie %}
+            <tr>
+                <td><p id="table">{{movie[0]}}</p></td>
+                <td><p id="table2">{{movie[1]}}</p></td>
+            </tr>
+        {% else %}
+        <h1>There are any recommendations for you</h1>
+        {% endfor %}
+        </table>
+    </div>
+    <div class="recomendation">
+        <h1>Random recommendation:</h1>
+        <p class="list2">{{random_movie}}</p>
+        <div id#="logo">
+            <img src="/static/logo.png" alt="Logo">
+        </div>
+    </div>
+    <div class="recomendation">
+        <h1>Recent recommendations:</h1>
+        {% for movie in recent_recommendations %}
+        <p class="list3">{{movie}}</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+
