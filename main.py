@@ -29,6 +29,7 @@ def home():
         #Add movie to datebase if user typed title
             if movie:
                 app.db.movie.insert_one({"movie title": movie})
+
                 return render_template("thanks.html")
             # Prevent to add en empty data to the datebase
             else:
@@ -41,6 +42,7 @@ def home():
 #Second page where user can find recommendations made by other users
 @app.route('/recommendations/')
 def recommendations():
+<<<<<<< HEAD
     movie_list = []
     movies = app.db.movie.find({})
     for movie in movies:
@@ -114,6 +116,7 @@ def recommendations():
     
 
 
+
 #A page with all recomendations in alphabethical order
 @app.route('/recommendations_all/')
 def recommendations_all():
@@ -154,10 +157,16 @@ def recommendations_all():
         if movie[0] in dictionary_movies_other_characters:
             dictionary_movies_other_characters[movie[0]].append(movie)
 
+
     
     
     return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
     others=dictionary_movies_other_characters, character_list=character_list)
+
+    
+        return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
+        others=dictionary_movies_other_characters, character_list=character_list)
+
 
 
 #On this page we thanks for the recommendation

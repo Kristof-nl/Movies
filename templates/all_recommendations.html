@@ -52,7 +52,10 @@
             {% for movie in movies_list %}
             <p class="titles">{{movie}}</p>
             {% endfor %}
+
         <!--Some characters need apart route - they make a fault if for example route end with /#-->
+
+
         {% elif movies_list|length > 10 and movies_list[0][0] in character_list %}
             {% if movies_list[0][0] == '#' %}
                 <p id="letter"><a href="/all_recommendations/hash">{{movies_list[0][0]}}</a></p>
