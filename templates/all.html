@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block title %}Recommendations{% endblock %}
-
 {% block content %}
     {% if movies|length < 30 %}
         {% for movie in movies %}

@@ -12,7 +12,8 @@ app.secret_key = os.getenv("SECRET_KEY")
 client = MongoClient(os.getenv("LOGIN_DATA"))
 app.db = client.Movies
 
-character_list = ["#", ","]
+#Titles can't start with this characters(they makes faults in url)
+character_list = ["#", "."]
 
 
 #Home page where user can recommend a movie
@@ -42,7 +43,6 @@ def home():
 #Second page where user can find recommendations made by other users
 @app.route('/recommendations/')
 def recommendations():
-<<<<<<< HEAD
     movie_list = []
     movies = app.db.movie.find({})
     for movie in movies:
@@ -115,8 +115,6 @@ def recommendations():
 
     
 
-
-
 #A page with all recomendations in alphabethical order
 @app.route('/recommendations_all/')
 def recommendations_all():
@@ -138,10 +136,6 @@ def recommendations_all():
     #Dictionary with movies begins with characters without alphabet
     dictionary_movies_other_characters = {}
 
-    #Make a new dictionary with all letters and characters
-    movies_dictionary = {**dictionary_movies_start_with, **dictionary_movies_other_characters}
-    session['dictionary'] = movies_dictionary
-
     #List with alphabet letters to add movies starts with other characters 
     alphabet = list(string.ascii_uppercase)
     for movie in alphabethical_movie_list:
@@ -157,16 +151,12 @@ def recommendations_all():
         if movie[0] in dictionary_movies_other_characters:
             dictionary_movies_other_characters[movie[0]].append(movie)
 
+    #Make a new dictionary with all letters and characters
+    movies_dictionary = {**dictionary_movies_other_characters, **dictionary_movies_start_with}
+    session['dictionary'] = movies_dictionary
 
-    
-    
     return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
-    others=dictionary_movies_other_characters, character_list=character_list)
-
-    
-        return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
-        others=dictionary_movies_other_characters, character_list=character_list)
-
+                    others=dictionary_movies_other_characters, character_list=character_list)
 
 
 #On this page we thanks for the recommendation
@@ -180,19 +170,7 @@ def thanks():
 def all_letters(letter):
     movies_dictionary = session.get('dictionary', None)
     return render_template("all.html", movies=movies_dictionary[letter])
-
-#Characters "#" / "." / "_" / "~", "#", "/" cannot be apart in url, they need apart routes
-@app.route('/all_recommendations/hash')
-def hash():
-    movies_dictionary = session.get('dictionary', None)
-    return render_template("all.html", movies=movies_dictionary["#"])
-
-@app.route('/all_recommendations/dot')
-def dot():
-    movies_dictionary = session.get('dictionary', None)
-    return render_template("all.html", movies=movies_dictionary["."])
-
-        
+ 
 
 if __name__ == "__main__":
     app.run(debug=True)
