@@ -13,7 +13,7 @@ client = MongoClient(os.getenv("LOGIN_DATA"))
 app.db = client.Movies
 
 #Titles can't start with this characters(they makes faults in url)
-character_list = ["#", "."]
+character_list = ["#", ".", ",", "{", "}", "\\", "^", "~",";", "/", "=","£","¤","¥","¦","¨","ª","«"]
 
 
 #Home page where user can recommend a movie
@@ -22,20 +22,25 @@ def home():
     if request.method == "POST":
         #Use capitalize to get every title with capital first character
         movie = request.form.get("title").capitalize()
-        #If movie title is longer than 30 characters add "..." at the end
-        if len(movie) > 25:
-            movie = movie[:25] + "..."
+        #Prevent to add title starts with strang characters
+        if len(movie) > 0 and movie[0] in character_list:
+            flash ("Title can't begins with characters as # . , { } ^ ; \ / or ~")
+            return render_template("home.html")
         else:
-            movie
-        #Add movie to datebase if user typed title
-            if movie:
-                app.db.movie.insert_one({"movie title": movie})
-
-                return render_template("thanks.html")
-            # Prevent to add en empty data to the datebase
+            #If movie title is longer than 25 characters add "..." at the end
+            if len(movie) > 25:
+                movie = movie[:25] + "..."
             else:
-                flash("Text field can't be empty. Please write a title.")
-                return render_template("home.html")
+                movie
+            #Add movie to datebase if user typed title
+                if movie:
+                    app.db.movie.insert_one({"movie title": movie})
+
+                    return render_template("thanks.html")
+            # Prevent to add en empty data to the datebase
+                else:
+                    flash("Text field can't be empty. Please write a title.")
+                    return render_template("home.html")
     else:
         return render_template("home.html")
 
@@ -49,8 +54,6 @@ def recommendations():
         movie_list.append(movie['movie title'])
 
     if movie_list:
-
-
         #Random recommedation
         random_movie = random.choice(movie_list)
         #Recent recommendations
@@ -62,7 +65,6 @@ def recommendations():
                 recent_movie = temporary_recent_list.pop()
                 if recent_movie not in recent_recommendations:
                     recent_recommendations.append(recent_movie)
-            
         else:
             # If are less than 10 movies in datebase
             while len(recent_recommendations) != len(set(movie_list)):
@@ -155,8 +157,16 @@ def recommendations_all():
     movies_dictionary = {**dictionary_movies_other_characters, **dictionary_movies_start_with}
     session['dictionary'] = movies_dictionary
 
+    #Make a list with all first letters and list with all first characters in titles (for buttons)
+    key_list = list(dictionary_movies_start_with.keys()) + list(dictionary_movies_other_characters.keys())
+    half_key_list = int(len(key_list)/2)
+    print(type(half_key_list))
+    print(half_key_list)
+
+
     return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
-                    others=dictionary_movies_other_characters, character_list=character_list)
+                    others=dictionary_movies_other_characters, character_list=character_list,
+                    key_list=key_list, half_key_list=half_key_list)
 
 
 #On this page we thanks for the recommendation

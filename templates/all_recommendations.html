@@ -1,21 +1,27 @@
 {% extends "base.html" %}
 
 {% block title %}All recommendations{% endblock %}
-
 {% block content %}
+<!--Buttons for every character. If there is more than 50 show it in 2 rows-->
+{% if key_list|length <=50 %}
 <div class="btn-group btn-group-toggle" data-toggle="buttons">  
-    {% for movies_list in movies.values() %}
-        {% if movies_list %}
-        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a>
-        {% endif %}
-    {% endfor %}
-    {% for movies_list in others.values() %}
-        {% if movies_list %}
-                <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}}</a>       
-        {% endif %}
+    {% for character in key_list %}
+        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{character}}">{{character}}</a>
     {% endfor %}
 </div>
-
+{% else %}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">  
+    {% for character in key_list[:half_key_list] %}
+        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{character}}">{{character}}</a>
+    {% endfor %}
+</div>
+    <br>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">  
+    {% for character in key_list[half_key_list:] %}
+        <a class="btn btn-secondary btn-sm" role="button" href="/all_recommendations/{{character}}">{{character}}</a>
+    {% endfor %}
+</div>
+{% endif %}
 
 <!--Iteretion for all movies in dictionary. Aplication print it only if list isn't empty-->
 <div>
@@ -43,7 +49,6 @@
 </div>
 {% endfor %}
 <!--Movies in others_list have starts with different characters so they need different logic-->        
-{
 <div>
 {% for movies_list in others.values() %}
     {% if movies_list %}
