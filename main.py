@@ -95,7 +95,6 @@ def recommendations():
                             #2 or more movies to add
                             if len(top_10) == 10:
                                 break
-
             else:
                 #If there is less than 10 movies in the datebase:
                 while len(top_10) !=len(temporary_set):
@@ -114,7 +113,6 @@ def recommendations():
     
     else:
         return render_template("recommendations.html")
-
     
 
 #A page with all recomendations in alphabethical order

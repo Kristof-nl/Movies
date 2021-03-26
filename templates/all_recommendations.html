@@ -37,7 +37,7 @@
         {% else %}
             <!--If there  are more than 10 movies the aplication print only first 9 titles end
             all show a link to a next page with all titles-->
-            <p id="letter"><a href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}} </a></p>
+            <p id="letter"><a class="letter_link" href="/all_recommendations/{{movies_list[0][0]}}">{{movies_list[0][0]}} </a></p>
             <p id="first">First 10 titles:</p>
             {% for movie in movies_list[:10] %}
             <p class="titles">{{movie}}</p>

@@ -11,7 +11,6 @@ body {
 }
 
 #question {
-    
     width: 650px;
     height: 175px;
     border-radius: 25px;
@@ -40,10 +39,8 @@ input{
 
 button {
     color: floralwhite;
-    border-radius: 10px;
     background-color: rgb(43, 42, 42);
 }
-
 
  #thanks {
     font-size: 32px;
@@ -61,7 +58,6 @@ button {
      text-align: center;
  }
 
-
  #recommendations:after {
         content: "";
         display: table;
@@ -75,8 +71,6 @@ button {
     text-align: right;
   }
 
-
-
 h1 {
     border-radius: 25px;
     color:rgba(255, 255, 255, 0.692);
@@ -86,8 +80,6 @@ h1 {
     padding: 10px;
     margin-bottom: 15px;
   }
-
-
 
 table {
     text-align: left;
@@ -101,7 +93,7 @@ table {
 .list3 {
     box-sizing: border-box;
     text-align: left;
-    padding-left: 100px;
+    padding-left: 125px;
 }
 
 p {
@@ -127,15 +119,18 @@ p {
 #alphabethic {
     color: black;
     width: 23%;
-    height: 580px;
+    height: max-content;
     float: left;
     margin: 10px;
     padding: 5px;
 }
 
 #letter {
+    margin-top: 20px;
     font-size: 20px;
-    font-weight: bold;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.788);
+    border-radius: 25px;
 }
 
 #title_all_recommendations {
@@ -148,7 +143,7 @@ a {
 }
 
 a:hover {
-    color:rgba(59, 59, 59, 0.55);
+    color:rgba(146, 146, 146, 0.55);
   }
 
 .titles {
@@ -179,19 +174,24 @@ img {
     width: 250px;
   }
 
-#letter {
-    background-color: rgba(15, 15, 15, 0.55);
-    border-radius: 25px;
-}
-
-
 .btn-group {
     width: 100%;
-
-   
 }
 
 .btn {
     background-color:rgba(51, 51, 51, 0.692) !important;
+    border-radius: 0px !important;
 }
 
+.btn:hover {
+    background-color:rgba(37, 37, 37, 0.55);
+  }
+
+span {
+    color: white !important;
+    font-size: 14px;
+} 
+
+.letter_link {
+    color: white;
+}
