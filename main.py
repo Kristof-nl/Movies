@@ -15,7 +15,6 @@ app.db = client.Movies
 #Titles can't start with this characters(they makes faults in url)
 character_list = ["#", ".", ",", "{", "}", "\\", "^", "~",";", "/", "=","£","¤","¥","¦","¨","ª","«"]
 
-
 #Home page where user can recommend a movie
 @app.route('/', methods=["POST", "GET"])
 def home():
@@ -107,10 +106,8 @@ def recommendations():
                                 temporary_list.remove(movie)
                             top_10.append([movie, number_of_recommendations])
                        
-
         return render_template("recommendations.html", most_common_movie=top_10, random_movie=random_movie,
                             recent_recommendations=recent_recommendations)
-    
     else:
         return render_template("recommendations.html")
     
