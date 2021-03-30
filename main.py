@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, flash, session, url_for
 from pymongo import MongoClient
 from statistics import multimode
 from dotenv import load_dotenv
+from quote_fun import quote
 load_dotenv()
 
 app = Flask(__name__)
@@ -12,8 +13,14 @@ app.secret_key = os.getenv("SECRET_KEY")
 client = MongoClient(os.getenv("LOGIN_DATA"))
 app.db = client.Movies
 
+
 #Titles can't start with this characters(they makes faults in url)
 character_list = ["#", ".", ",", "{", "}", "\\", "^", "~",";", "/", "=","£","¤","¥","¦","¨","ª","«"]
+
+#Send quotes to navbar with help of context_processor
+@app.context_processor
+def context_processor():
+    return dict(quote=quote)
 
 #Home page where user can recommend a movie
 @app.route('/', methods=["POST", "GET"])
