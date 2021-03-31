@@ -162,9 +162,6 @@ def recommendations_all():
     #Make a list with all first letters and list with all first characters in titles (for buttons)
     key_list = list(dictionary_movies_start_with.keys()) + list(dictionary_movies_other_characters.keys())
     half_key_list = int(len(key_list)/2)
-    print(type(half_key_list))
-    print(half_key_list)
-
 
     return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
                     others=dictionary_movies_other_characters, character_list=character_list,
