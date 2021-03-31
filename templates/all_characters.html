@@ -3,6 +3,7 @@
 {% block title %}Recommendations{% endblock %}
 
 {% block content %}
+{{ quote }}
     {% if movies|length < 30 %}
         {% for movie in movies %}
         <p>{{movie}}</p>

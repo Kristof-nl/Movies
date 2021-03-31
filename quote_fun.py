@@ -12,10 +12,10 @@ def quote():
     quotes_list =[]
     quotes = db.quotes.find({})
     for quo in quotes:
-        quotes_list.append(quo['quote'])
-    random_value = random.randint(1,151)
+        if len(quo['quote']) < 100:
+            quotes_list.append(quo['quote'])
+    random_value = random.randint(0,(len(quotes_list)))
     return quotes_list[random_value]
-
 
 
 
