@@ -196,3 +196,16 @@ span {
 .letter_link {
     color: white;
 }
+
+
+.two_column {
+    display:block;
+    width:100%;
+  }
+  
+.column2 {
+    width:50%; 
+    float: left; 
+    display: inline-block;
+    text-align: center;
+  }

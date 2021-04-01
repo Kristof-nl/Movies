@@ -2,10 +2,24 @@
 
 {% block title %}Recommendations{% endblock %}
 {% block content %}
-    {% if movies|length < 30 %}
+    {% if movies|length < 3 %}
         {% for movie in movies %}
         <p>{{movie}}</p>
         {% endfor %}
+    {% endif %}
+    {% if movies|length > 3 and movies|length < 10 %}
+        {% set half = ((movies|length)/2)|int  %}
+        {% set movies1 = movies[:half] %}
+        {% set movies2 = movies[half:] %}
+        {{ half }}
+        <div class="two_column">
+            {% for movie in movies1 %}
+                <div class="column2">{{ movie }}</div>
+            {% endfor %}
+            {% for movie in movies2 %}
+                <div class="column2">{{ movie }}</div>
+            {% endfor %}
+        </div>
     {% endif %}
 
 {% endblock %}
