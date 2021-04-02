@@ -14,7 +14,7 @@ def quote():
     for quo in quotes:
         if len(quo['quote']) < 100:
             quotes_list.append(quo['quote'])
-    random_value = random.randint(0,(len(quotes_list)))
+    random_value = random.randint(0,(len(quotes_list)-1))
     return quotes_list[random_value]
 
 

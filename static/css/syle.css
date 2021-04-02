@@ -197,15 +197,31 @@ span {
     color: white;
 }
 
+#test {
+    background-color: rgb(189, 18, 18);
+    color: chartreuse;
+}
 
-.two_column {
-    display:block;
-    width:100%;
-  }
-  
-.column2 {
-    width:50%; 
-    float: left; 
-    display: inline-block;
+#columns {
+    display:block; 
+    width:100%; 
     text-align: center;
-  }
+} 
+
+.two_columns {
+    width: 50%;
+    float: left;
+    display: inline-block;
+}
+
+.three_columns {
+    width: 33%;
+    float: left;
+    display: inline-block;
+}
+
+.four_columns {
+    width: 25%;
+    float: left;
+
+}

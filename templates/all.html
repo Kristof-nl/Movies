@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Recommendations{% endblock %}
+{% block title %}Letter{% endblock %}
 {% block content %}
+<!-- Divide a list of films if there are more than 33 (2 list), more than 66 (3 list) and more than 100 (4 lists)  -->
+<div id="test"><p>test</p></div>
     {% if movies|length < 3 %}
         {% for movie in movies %}
         <p>{{movie}}</p>
@@ -11,15 +13,55 @@
         {% set half = ((movies|length)/2)|int  %}
         {% set movies1 = movies[:half] %}
         {% set movies2 = movies[half:] %}
-        {{ half }}
-        <div class="two_column">
+        <div id="columns">
             {% for movie in movies1 %}
-                <div class="column2">{{ movie }}</div>
+                <div class="two_columns"><p>{{ movie }}</p></div>
             {% endfor %}
             {% for movie in movies2 %}
-                <div class="column2">{{ movie }}</div>
-            {% endfor %}
+                <div class="two_columns"><p>{{ movie }}</p></div>
+            {% endfor %}    
         </div>
     {% endif %}
-
+    {% if movies|length > 10 and movies|length < 15 %}
+        {% set onethird = ((movies|length)/3)|int  %}
+        {% set twothird = (onethird * 2)|int %}
+        {% set movies1 = movies[:onethird] %}
+        {% set movies2 = movies[onethird:twothird] %}
+        {% set movies3 = movies[twothird:] %}
+        <div id="columns">
+            {% for movie in movies1 %}
+                <div class="three_columns" ><p>{{ movie }}</p></div>
+            {% endfor %}
+            {% for movie in movies2 %}
+                <div class="three_columns"><p>{{ movie }}</p></div>
+            {% endfor %}
+            {% for movie in movies3 %}
+                <div class="three_columns"><p>{{ movie }}</p></div>
+            {% endfor %}        
+        </div>
+    {% endif %}
+    {% if movies|length > 15 %}
+        {% set quart = ((movies|length)/4)|int %}
+        {% set half = ((movies|length)/2)|int  %}
+        {% set threequart = (quart * 3)|int %}
+        {% set movies1 = movies[:quart] %}
+        {% set movies2 = movies[quart:half] %}
+        {% set movies3 = movies[half:threequart] %}
+        {% set movies4 = movies[threequart:] %}
+        <div id="columns">
+            {% for movie in movies1 %}
+                <div class="four_columns"><p>{{ movie }}</p></div>
+            {% endfor %}
+            {% for movie in movies2 %}
+                <div class="four_columns"><p>{{ movie }}</p></div>
+            {% endfor %}
+            {% for movie in movies3 %}
+                <div class="four_columns"><p>{{ movie }}</p></div>
+            {% endfor %}
+            {% for movie in movies4 %}
+                <div class="four_columns"><p>{{ movie }}</p></div>
+            {% endfor %}        
+        </div>
+    {% endif %}
+    
 {% endblock %}
