@@ -197,16 +197,13 @@ span {
     color: white;
 }
 
-#test {
-    background-color: rgb(189, 18, 18);
-    color: chartreuse;
-}
-
 #columns {
+    font-size: 14px;
     display:block; 
     width:100%; 
     text-align: center;
-} 
+    margin-top: 15px;
+}
 
 .two_columns {
     width: 50%;
@@ -223,5 +220,18 @@ span {
 .four_columns {
     width: 25%;
     float: left;
-
+    display: inline-block;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 75px;
+    background-color:black;
+    color: white;
+    text-align: center;
+  }
+
+  

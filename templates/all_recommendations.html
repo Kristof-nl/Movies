@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}All recommendations{% endblock %}
+
 {% block content %}
 <!--Buttons for every character. If there is more than 50 show it in 2 rows-->
 {% if key_list|length <=50 %}
@@ -74,5 +75,4 @@
 </div>
 {% endfor %}
 
- 
 {% endblock %}
