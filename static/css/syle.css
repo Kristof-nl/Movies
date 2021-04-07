@@ -229,9 +229,58 @@ span {
     bottom: 0;
     width: 100%;
     height: 75px;
-    background-color:black;
+    background-color: rgb(63, 63, 63);
     color: white;
     text-align: center;
+}
+
+#end {
+    width: 100%;
+    height: 200px;
+}
+
+#before-footer {
+    color: #fcfcf5;
+}
+
+.f1 {
+    padding: 0;
+    margin-top: 5px;
+}
+     
+
+.f1,
+.f2,
+.f3 {
+     
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+display: inline-block;
+text-align: right;
+font-size: 12px;
+padding: 0 8%;
+min-width: 300px;
+width: 33%;
+}
+     
+.f1 {
+    text-align: left;
+}
+
+#logos {
+    padding: 5px;
+}
+
+#logo {
+    height: 40px;
+    width: 40px;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
   }
 
-  
+.row {
+    margin-top: 5px;
+}
