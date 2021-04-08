@@ -2,6 +2,9 @@
 
 {% block title %}Letter{% endblock %}
 {% block content %}
+{% if movies|length == 0 %}
+<p id="nothing">There is nothing to show</p>
+{% endif %}
 <!-- Divide a list of films if there are more than 33 (2 list), more than 66 (3 list) and more than 100 (4 lists)  -->
     {% if movies|length < 3 %}
     <div id="columns">
