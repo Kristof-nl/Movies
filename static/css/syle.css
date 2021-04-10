@@ -144,15 +144,30 @@ a {
 }
 
 a:hover {
-    color:rgba(146, 146, 146, 0.55);
+    color:rgba(238, 238, 238, 0.55);
   }
 
 .titles {
     font-size: 16px;
+    margin: 0%;
+    padding: auto;
+    background-color: rgb(190, 190, 190);
 }
 
 #first {
     text-decoration: underline;
+    padding: auto;
+    margin: 0%;
+    padding-bottom: 10px;
+    background-color:rgb(190, 190, 190);
+}
+
+#all {
+    padding: auto;
+    margin: 0%;
+    padding-bottom: 15px;
+    padding-top: 10px;
+    background-color:rgb(190, 190, 190);
 }
 
 #movie_letter30 {

@@ -2,11 +2,8 @@
 
 {% block title %}Letter{% endblock %}
 {% block content %}
-{% if movies|length == 0 %}
-<p id="nothing">There is nothing to show</p>
-{% endif %}
 <!-- Divide a list of films if there are more than 33 (2 list), more than 66 (3 list) and more than 100 (4 lists)  -->
-    {% if movies|length < 3 %}
+    {% if movies|length <= 33 %}
     <div id="columns">
         {% for movie in movies %}
         <p>{{movie}}</p>
@@ -14,7 +11,7 @@
     </div>
     {% endif %}
 <!--2 colums-->
-    {% if movies|length > 3 and movies|length < 10 %}
+    {% if movies|length > 33 and movies|length < 66 %}
         {% set half = ((movies|length)/2)|int  %}
         {% set movies1 = movies[:half] %}
         {% set movies2 = movies[half:] %}
@@ -28,7 +25,7 @@
         </div>
     {% endif %}
 <!--3 colums-->
-    {% if movies|length > 10 and movies|length < 15 %}
+    {% if movies|length >= 66 and movies|length < 100 %}
         {% set onethird = ((movies|length)/3)|int  %}
         {% set twothird = (onethird * 2)|int %}
         {% set movies1 = movies[:onethird] %}
@@ -47,7 +44,7 @@
         </div>
     {% endif %}
 <!--4 colums-->
-    {% if movies|length > 15 %}
+    {% if movies|length >= 100 %}
         {% set quart = ((movies|length)/4)|int %}
         {% set half = ((movies|length)/2)|int  %}
         {% set threequart = (quart * 3)|int %}
@@ -70,5 +67,10 @@
             {% endfor %}        
         </div>
     {% endif %}
-    
+
+<!--Show message if there is any film on the list-->    
+{% if movies|length == 0 %}
+    <p>There is nothing to show</p>
+{% endif %}
+
 {% endblock %}

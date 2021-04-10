@@ -43,7 +43,7 @@
             {% for movie in movies_list[:10] %}
             <p class="titles">{{movie}}</p>
             {% endfor %}
-            <p>To see all please click <a href="/all_recommendations/{{movies_list[0][0]}}">here</a></p>
+            <p id="all">To see all please click <a href="/all_recommendations/{{movies_list[0][0]}}">here</a></p>
         {% endif %}
     {% endif %}
     </div>
@@ -68,7 +68,7 @@
             {% for movie in movies_list[:10] %}
             <p class="titles">{{movie}}</p>
             {% endfor %}
-            <p>To see all please click <a href="/all_recommendations/{{movies_list[0][0]}}">here</a></p>
+            <p id="all">To see all please click <a href="/all_recommendations/{{movies_list[0][0]}}">here</a></p>
         {% endif %}
     {% endif %}
     </div>
