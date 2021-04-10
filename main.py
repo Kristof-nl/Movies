@@ -20,7 +20,43 @@ character_list = ["#", ".", ",", "{", "}", "\\", "^", "~",";", "/", "=","£","¤
 #Send quotes to navbar with help of context_processor
 @app.context_processor
 def context_processor():
-    return dict(quote=quote)
+    movie_list = []
+    movies = app.db.movie.find({})
+    for movie in movies:
+        movie_list.append(movie['movie title'])
+
+    #Make a dictionary with all movies for all_recommendations page
+    #Delete all repeats by creating a set
+    movie_set = set(movie_list)
+    alphabethical_movie_list = sorted(movie_set)
+
+    #Dictionary is apart to shown first movies begins with letters from alphabet
+    dictionary_movies_start_with = {'A':[], 'B':[], 'C':[], 'D':[], 'E':[], 'F':[], 'G':[], 'H':[], 'I':[], 'J':[],
+    'K':[], 'L':[], 'M':[], 'N':[], 'O':[], 'P':[], 'Q':[], 'R':[], 'S':[], 'T':[], 'U':[], 'V':[], 'W':[], 'X':[],
+    'Y':[], 'Z':[]}
+
+    #Dictionary with movies begins with characters without alphabet
+    dictionary_movies_other_characters = {}
+
+    #List with alphabet letters to add movies starts with other characters 
+    alphabet = list(string.ascii_uppercase)
+    for movie in alphabethical_movie_list:
+        #Add movies starts with letter from alphabet
+        if movie[0] in alphabet:
+            dictionary_movies_start_with[movie[0]].append(movie)
+        #Create keys for dictionary_movies_other_characters
+        else:
+            if movie[0] not in dictionary_movies_other_characters.keys():
+                dictionary_movies_other_characters.update({movie[0]:[]})
+    #Add movie to dictionary_movies_other_characters if it starts with character outside the alphabet
+    for movie in alphabethical_movie_list:
+        if movie[0] in dictionary_movies_other_characters:
+            dictionary_movies_other_characters[movie[0]].append(movie)
+
+    #Make a new dictionary with all letters and characters
+    movies_dictionary = {**dictionary_movies_other_characters, **dictionary_movies_start_with}
+
+    return dict(quote=quote, movies_dictionary=movies_dictionary)
 
 #Home page where user can recommend a movie
 @app.route('/', methods=["POST", "GET"])
@@ -58,6 +94,7 @@ def recommendations():
     movies = app.db.movie.find({})
     for movie in movies:
         movie_list.append(movie['movie title'])
+    print(movies)
 
     if movie_list:
         #Random recommedation
@@ -157,7 +194,7 @@ def recommendations_all():
 
     #Make a new dictionary with all letters and characters
     movies_dictionary = {**dictionary_movies_other_characters, **dictionary_movies_start_with}
-    session['dictionary'] = movies_dictionary
+
 
     #Make a list with all first letters and list with all first characters in titles (for buttons)
     key_list = list(dictionary_movies_start_with.keys()) + list(dictionary_movies_other_characters.keys())
@@ -177,8 +214,7 @@ def thanks():
 #Make pages with list of the movies stated with a specified letter
 @app.route('/all_recommendations/<letter>')
 def all_letters(letter):
-    movies_dictionary = session.get('dictionary', None)
-    return render_template("all.html", movies=movies_dictionary[letter])
+    return render_template("all.html")
  
 
 if __name__ == "__main__":
