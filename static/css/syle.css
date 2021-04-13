@@ -1,6 +1,6 @@
 body {
     background-color: #fcfcf5;
-    font-family: 'RocknRoll One', sans-serif;
+    font-family: 'RocknRoll One', Arial, Helvetica, sans-serif;
 }
 
 #movie {
@@ -144,7 +144,7 @@ a {
 }
 
 a:hover {
-    color:rgba(238, 238, 238, 0.55);
+    color:rgba(221, 221, 221, 0.55);
   }
 
 .titles {
@@ -287,7 +287,6 @@ width: 33%;
     width: 40px;
     float: left;
 }
-
 
 .column {
     float: left;

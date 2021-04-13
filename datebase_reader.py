@@ -7,11 +7,11 @@ load_dotenv()
 client = MongoClient(os.getenv("LOGIN_DATA"))
 db = client.Movies
 
-#Add movies made in year 2001 from datebase from imdb
+#Add movies made in year 2008 from datebase from imdb
 con = sqlite3.connect('movies.db')
 cur = con.cursor()
 
-cur.execute("SELECT title FROM movies WHERE year=2001")
+cur.execute("SELECT title FROM movies WHERE year=2008")
 
 movies_2001 = cur.fetchall()
 

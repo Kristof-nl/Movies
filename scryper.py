@@ -7,8 +7,7 @@ load_dotenv()
 client = MongoClient(os.getenv("LOGIN_DATA"))
 db = client.Movies
 
-
-
+#Scryper to get quotes for the navbar
 page = requests.get("http://www.planetofsuccess.com/blog/2019/movie-quotes/").text
 soup = BeautifulSoup(page, 'html.parser')
 
