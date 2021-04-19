@@ -15,6 +15,7 @@ for movie in movies:
     movie_list.append(movie['movie title'])
 
 
+
 #Make a dictionary with all movies for all_recommendations page
 #Delete all repeats by creating a set
 movie_set = set(movie_list)
@@ -49,7 +50,6 @@ for movie in alphabethical_movie_list:
 #Make a list with all first letters and list with all first characters in titles (for buttons)
 key_list = list(dictionary_movies_start_with.keys()) + list(dictionary_movies_other_characters.keys())
 half_key_list = int(len(key_list)/2)
-
 
 
 def movies_dict():

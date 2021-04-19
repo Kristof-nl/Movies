@@ -7,22 +7,28 @@ load_dotenv()
 client = MongoClient(os.getenv("LOGIN_DATA"))
 db = client.Movies
 
-#Add movies made in year 2008 from datebase from imdb
-con = sqlite3.connect('movies.db')
-cur = con.cursor()
+character_list = ["#", ".", ",", "{", "}", "\\", "^", "~",";", "/", "=","£","¤","¥","¦","¨","ª","«"]
 
-cur.execute("SELECT title FROM movies WHERE year=2008")
+#Add movies made in choosen year from imdb datebase
+def add_movies(year):
+    con = sqlite3.connect('movies.db')
+    cur = con.cursor()
 
-movies_2001 = cur.fetchall()
+    cur.execute("SELECT title FROM movies WHERE year={}".format(year))
 
-for movie in movies_2001:
-    movie = movie[0]
-    if len(movie) > 25:
+    movies_year = cur.fetchall()
+
+    for movie in movies_year:
+        movie = movie[0].capitalize()
+        if movie[0] not in character_list:
+            if len(movie) > 25:
                 movie = movie[:25] + "..."
-    else:
-        movie
-    db.movie.insert_one({"movie title": movie})
+            else:
+                movie
+            db.movie.insert_one({"movie title": movie})
 
 
-con.close()
+    con.close()
 
+
+add_movies(1974)
