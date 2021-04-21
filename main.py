@@ -53,14 +53,13 @@ def home():
 
 
 #Second page where user can find recommendations made by other users
-@app.route('/recommendations/', methods=["GET"])
+@app.route('/recommendations/')
 def recommendations():
-    if request.method == "GET":
-        top_10 = top()
-        recent_recommendations = recent()
-        random_movie = randoms()
+    top_10 = top()
+    recent_recommendations = recent()
+    random_movie = randoms()
 
-        return render_template("recommendations.html", most_common_movie=top_10, random_movie=random_movie,
+    return render_template("recommendations.html", most_common_movie=top_10, random_movie=random_movie,
                         recent_recommendations=recent_recommendations)
     
     
