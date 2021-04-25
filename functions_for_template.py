@@ -7,9 +7,8 @@ load_dotenv()
 client = MongoClient(os.getenv("LOGIN_DATA"))
 db = client.Movies
 
-#Titles can't start with this characters(they makes faults in url)
-character_list = ["#", ".", ",", "{", "}", "\\", "^", "~",";", "/", "=","£","¤","¥","¦","¨","ª","«"]
 
+#Get data from datebase
 def datebase():
     movie_list = []
     movies = db.movie.find({})
@@ -78,24 +77,20 @@ def movies_dict():
     return movies_dictionary 
 
 
-def characters():
-    character_list
-    return character_list
-
+#Make a list with all first letters and list with all first characters in titles (for buttons)
 def key():
     #Call datebase to refresh data in route
     movie_list = datebase()
-    #Make a list with all first letters and list with all first characters in titles (for buttons)
     dictionary_movies_other_characters = other()
     dictionary_movies_start_with = movies()
     key_list = list(dictionary_movies_start_with.keys()) + list(dictionary_movies_other_characters.keys())
 
     return key_list
 
+# For buttons
 def half_key():
     #Call datebase to refresh data in route
     movie_list = datebase()
-    # For buttons
     key_list = key()
     half_key_list = int(len(key_list)/2)
 
@@ -169,5 +164,3 @@ def recent():
                 recent_recommendations.append(recent_movie)
     return recent_recommendations
 
-
-print(other())

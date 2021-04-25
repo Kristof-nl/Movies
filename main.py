@@ -1,10 +1,9 @@
 import os, random, string
 from flask import Flask, render_template, request, flash, session, url_for
 from pymongo import MongoClient
-
 from dotenv import load_dotenv
 from quote_fun import quote
-from functions_for_template import movies_dict, movies, other, characters, key, half_key, top, randoms, recent
+from functions_for_template import movies_dict, movies, other, key, half_key, top, randoms, recent
 load_dotenv()
 
 app = Flask(__name__)
@@ -63,19 +62,16 @@ def recommendations():
                         recent_recommendations=recent_recommendations)
     
     
-
 #A page with all recomendations in alphabethical order
 @app.route('/recommendations_all/')
 def recommendations_all():
     dictionary_movies_start_with = movies()
     dictionary_movies_other_characters = other()
-    character_list = characters()
     key_list = key()
     half_key_list = half_key()
     
     return render_template("all_recommendations.html", movies=dictionary_movies_start_with,
-                    others=dictionary_movies_other_characters, character_list=character_list,
-                    key_list=key_list, half_key_list=half_key_list)
+                    others=dictionary_movies_other_characters, key_list=key_list, half_key_list=half_key_list)
 
 
 #On this page we thanks for the recommendation
@@ -90,9 +86,6 @@ def all_letters(letter):
     movies_dictionary = movies_dict()
     return render_template("all.html", movies_dictionary=movies_dictionary)
  
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
