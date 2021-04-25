@@ -87,5 +87,7 @@ def all_letters(letter):
     return render_template("all.html", movies_dictionary=movies_dictionary)
  
 
+
+port = int(os.environ.get('PORT', 5000))
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=port)
