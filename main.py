@@ -11,6 +11,7 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 #Create a MongoDB datebase with hidden login data (with help of python dotenv)
 client = MongoClient(os.getenv("LOGIN_DATA"))
+connectTimeoutMS=30000, socketTimeoutMS=None, socketKeepAlive=True, connect=False, maxPoolsize=1
 app.db = client.Movies
 
 #Titles can't start with this characters(they makes faults in url)
