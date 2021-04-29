@@ -140,8 +140,9 @@ def top():
 def randoms():
     #Call datebase to refresh data in route
     movie_list = datebase()
-    random_movie = random.choice(movie_list)
-    return random_movie
+    if len(movie_list) > 0:
+        random_movie = random.choice(movie_list)
+        return random_movie
 
 
 #Recent recommendations
